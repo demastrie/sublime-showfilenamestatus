@@ -8,6 +8,9 @@ class ShowFilenameInStatus(sublime_plugin.EventListener):
         filename = view.file_name()
         view.erase_status('_filename')
         if filename is not None:
+            display_prefix = 'File "'
             if len(filename) > MAX_FILE_LENGTH:
                 filename = filename[-(MAX_FILE_LENGTH - 3):]
-            view.set_status('_filename', 'File "...{}"'.format(filename))
+                display_prefix = 'File "...'
+            view.set_status('_filename', '{0}{1}"'.format(
+                display_prefix, filename))
